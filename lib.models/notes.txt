@@ -1,0 +1,5 @@
+This folder contains a set of models that can be used as inputs for pecan.
+
+The model functions accept x and the model parameters separately as input arguments.
+The out is a single value for each element of x:
+y <- function(x, p1, p2, p3, ...)
