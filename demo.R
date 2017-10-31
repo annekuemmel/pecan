@@ -45,7 +45,7 @@ gr_data_init
 res.example <- pecan(errmod="exp")
 
 # Results are displayed in a graph:
-res.example$gr
+grid.arrange(res.example$gr)
 
 
 # Diagnostic plots for the estimation:
@@ -122,7 +122,7 @@ res.emax.nls <- pecan(
    ylab = "effect"
 
 )
-res.emax.nls$gr
+grid.arrange(res.emax.nls$gr)
 res.emax.nls$diagnostics[[2]]
 
 
@@ -155,7 +155,7 @@ res.emax.nlm <- pecan(
    xlab = "AUC",
    ylab = "effect"
 )
-res.emax.nlm$gr
+grid.arrange(res.emax.nlm$gr)
 
 
 
@@ -195,7 +195,7 @@ res.emax.nlm.delta <- pecan(
    ylab = "effect"
 
 )
-res.emax.nlm.delta$gr
+grid.arrange(res.emax.nlm.delta$gr)
 
 
 
@@ -231,7 +231,7 @@ res.emax.nlm.mc <- pecan(
    ylab = "effect"
 
 )
-res.emax.nlm.mc$gr
+grid.arrange(res.emax.nlm.mc$gr)
 
 
 
@@ -267,7 +267,7 @@ res.emax.nlm.boot <- pecan(
    ylab = "effect"
 
 )
-res.emax.nlm.boot$gr
+grid.arrange(res.emax.nlm.boot$gr)
 
 
 
@@ -342,11 +342,11 @@ res.advan <- pecan(
    nsmpl = 100,                 # number of samples for simulation/estimation methods
 
    log.x = FALSE,            # graphical setting only!
-   log.y = FALSE,            # graphical setting only!
+   log.y = FALSE            # graphical setting only!
 
 )
 # model fit:
-res.advan$gr
+grid.arrange(res.advan$gr)
 
 
 # diagnostics:
