@@ -124,13 +124,13 @@ plot.data.CI <- function(
      build <- ggplot_build(gr)
      get.textcoord <- function(range, frac, log){
       if (log) {
-         coord <- 10^(range[1] + frac*diff(range))
+         coord <- 10^(log10(range[1]) + frac*diff(log10(range)))
       } else {
          coord <- range[1] + frac*diff(range)
       }
      }
-     info <- data.frame(x=get.textcoord(build$panel$ranges[[1]]$x.range, 0.05, log.x),
-                        y=get.textcoord(build$panel$ranges[[1]]$y.range, 0.05, log.y),
+     info <- data.frame(x=get.textcoord(range(df.plot$x), 0.05, log.x),
+                        y=get.textcoord(range(df.plot$y), 0.05, log.y),
                         label=paste(pred$n.fail,' out of ',pred$n,' runs failed.',sep=''))
      gr <- gr +  geom_text(data=info, aes(x=x,y=y,label=label), color = 'black', size = 3, hjust=0,vjust=0)
     }
@@ -172,13 +172,14 @@ plot.data.CI <- function(
        names(resulttable) <- gsub("CI",paste(CI.perc,"% CI",sep=""),names(resulttable))
 
        # build grob
+       tt <- ttheme_minimal(base_size = 10, padding = unit(c(3,3), "mm"))
        gr.resinfo <- tableGrob(
          resulttable,
-         gp = gpar(cex=0.75), padding.v = unit(3, "mm"),
-         show.rownames = FALSE
+         theme = tt, # gp = gpar(cex=0.75), padding = unit(c(3,3), "mm"),
+         rows = NULL
        )
        h1 <- grobHeight(gr.resinfo)
-       gr.resinfo$vp <- viewport(x=0, y=unit(1,"npc")-h1*0.5-unit(1,"line"), just=c(0,0.5))
+       gr.resinfo$vp <- viewport(x=0, y=unit(1,"npc")-h1*0.5-unit(2,"line"), just=c(0,0.5))
 
    # Constrauction of method information display
    # error model information
@@ -196,11 +197,11 @@ plot.data.CI <- function(
      )
      gr.methinfo <- tableGrob(
        methinfo,
-       gp = gpar(cex=0.75), padding.v = unit(3, "mm"),
-       show.rownames = FALSE, show.colnames = TRUE
+       theme = tt, # gp = gpar(cex=0.75), padding.v = unit(3, "mm"),
+       rows = NULL, cols = NULL
      )
      h2 <- grobHeight(gr.methinfo)
-     gr.methinfo$vp <- viewport(x=0.2,y=unit(1,"npc")-h2*0.5-unit(1,"line"), just=c(0,0.5), clip = "off")
+     gr.methinfo$vp <- viewport(x=0.2,y=unit(1,"npc")-h2*0.5-unit(2,"line"), just=c(0,0.5), clip = "off")
 
    # build graphical output
    gr.info <- arrangeGrob(gr.methinfo,gr.resinfo, ncol=2, nrow = 1, widths = c(1,1.5))
