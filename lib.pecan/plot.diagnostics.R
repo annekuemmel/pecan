@@ -12,7 +12,7 @@ plot.diagnostics <- function(diagn,log.x,log.y){
 
    # Residuals against predictions
    gr_res_ypred <- ggplot(diagn, aes(ypred,wres)) +
-                     geom_hline(color='firebrick') +
+                     geom_hline(yintercept = 0, color='firebrick') +
                      geom_point(shape=1) +
                      geom_smooth(color='steelblue', se = FALSE, method = 'loess',size=0.8) +
                      labs(x='Predictions',y='Weighted residuals')
@@ -26,7 +26,7 @@ plot.diagnostics <- function(diagn,log.x,log.y){
      diagn$t[diagn$cens] <- exp(min(log10(diagn$t[!diagn$cens]))-0.05*diff(range(log10(diagn$t[!diagn$cens]))))
    }
    gr_res_t <- ggplot(diagn, aes(t,wres)) +
-                     geom_hline(color='firebrick') +
+                     geom_hline(yintercept = 0, color='firebrick') +
                      geom_point(shape=21,aes(fill=cens)) +
                      geom_smooth(color='steelblue', se = FALSE, method = 'loess',size=0.8) +
                      labs(x='Independent variable',y='Weighted residuals') +
