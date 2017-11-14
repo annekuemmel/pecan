@@ -86,7 +86,7 @@ res.example$diagnostics[[4]] # histogram of weighted residuals
   data.emax <- within(
     data.frame(dose=rep(doses,each=8)),  # simulate 8 observations per dose
     {
-      auc <- dose / CL * exp(rnorm(length(dose),sd=iivCL))  # simulate AUCs
+      auc <- dose * exp(rnorm(length(dose),sd=iivCL))  # simulate AUCs
       effect <- emax(x=auc, E0=E0, Emax=Emax, EC50 = EC50)  # predict effect
       effect <- effect + (a+effect*b)*rnorm(length(dose))   # add residual error
     }
